@@ -1,5 +1,7 @@
 // src/lib/data.ts
-import { Camera, Home,  LucideAxis3D, Settings, Sparkle } from "lucide-react";
+import { id } from "date-fns/locale";
+import { Webcam, Home,  User2, Settings, Sparkle,  } from "lucide-react";
+import { title } from "process";
 
 export const sidebarData = [
   {
@@ -12,13 +14,13 @@ export const sidebarData = [
    {
         id:2,
         title:"webinars",
-        icon:Camera,    
+        icon:Webcam,    
         link:"/webinars"
     },
     {
         id:3,
         title:"Leads",
-        icon:LucideAxis3D,
+        icon:User2,
         link:"/lead"
     },
     {
@@ -42,3 +44,11 @@ export type SidebarItem = {
   icon: React.ComponentType<{ className?: string }>;
   link: string;
 };
+
+
+
+export const onBoardingSteps = [
+  {id:1,title:"create a webinar",complete:false,link:''},
+  {id:2,title:"Get leads",complete:false,link:''},
+  {id:3,title:"conversion status",complete:false,link:''},
+]

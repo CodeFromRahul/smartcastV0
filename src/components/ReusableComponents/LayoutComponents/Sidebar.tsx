@@ -5,6 +5,7 @@ import { Icon, SpotlightIcon } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import React from 'react'
+import { UserButton } from '@clerk/nextjs'
 // import sidebarData from "../../../../src/lib/data";
 
 type Props = {}
@@ -18,14 +19,15 @@ const Sidebar = (props: Props) => {
     <div className=''>
         <SpotlightIcon/>
     </div>
-    <div className='flex h-full justify-between items-center flex-col'>
+    <div className='w-full h-full justify-between items-center flex flex-col'>
+    <div className='flex h-fit justify-between items-center flex-col gap-4'>
     {sidebarData.map((item)=>(
         <TooltipProvider key={item.id}>
           <Tooltip>
             <TooltipTrigger asChild>
                 <Link href={item.link}
                  className={`flex items-center gap-2 cursor-pointer rounded-lg p-2 ${pathname.includes(item.link)?'iconBackground':" "}`}>
-                    <item.icon className='w-5 h-5 text-primary'/>
+                    <item.icon className={`w-4 h-4 ${pathname.includes(item.link)?' ':"opacity-80"}`}/>
 
                </Link>
             </TooltipTrigger>
@@ -33,6 +35,11 @@ const Sidebar = (props: Props) => {
         </TooltipProvider>
     ))}
     </div>
+
+    
+    </div>
+
+<UserButton/>
 
      </div>
   )

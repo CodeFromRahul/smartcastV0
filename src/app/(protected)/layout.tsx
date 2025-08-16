@@ -1,6 +1,7 @@
 import { onAuthenticateUser } from '@/actions/auth'
 import React from 'react'
 import Sidebar from '@/components/ReusableComponents/LayoutComponents/Sidebar'
+import Header from '@/components/ReusableComponents/LayoutComponents/Header'
 type Props = {
     children: React.ReactNode
 }
@@ -15,6 +16,7 @@ const layout = async ({children}: Props) => {
     <div className='flex w-full min-h-screen'>
         <Sidebar/>
         <div className='flex flex-col w-full h-screen overflow-auto px-4 scrollbar-hide container mx-auto'>
+          <Header user={userExist.user}/>
           {children}
         </div>
     </div>
