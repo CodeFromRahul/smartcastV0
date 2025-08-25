@@ -1,6 +1,6 @@
 "use client"
 import { sidebarData } from '@/lib/data'
-import { TooltipProvider, TooltipTrigger,Tooltip } from '@radix-ui/react-tooltip'
+import { TooltipProvider, TooltipTrigger,Tooltip, TooltipContent } from '@radix-ui/react-tooltip'
 import { Icon, SpotlightIcon } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
@@ -31,6 +31,13 @@ const Sidebar = (props: Props) => {
 
                </Link>
             </TooltipTrigger>
+            <TooltipContent side='right'>
+              <span className='text-sm'>
+                {item.title}
+
+              </span>
+
+            </TooltipContent>
           </Tooltip>
         </TooltipProvider>
     ))}

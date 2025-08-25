@@ -1,4 +1,5 @@
 // src/lib/data.ts
+import { CallStatusEnum } from "@/generated/prisma";
 import { id } from "date-fns/locale";
 import { Webcam, Home,  User2, Settings, Sparkle,  } from "lucide-react";
 import { title } from "process";
@@ -51,4 +52,52 @@ export const onBoardingSteps = [
   {id:1,title:"create a webinar",complete:false,link:''},
   {id:2,title:"Get leads",complete:false,link:''},
   {id:3,title:"conversion status",complete:false,link:''},
+]
+
+
+
+
+export const potentialCustomer=[
+  {
+  id:"1",
+  name:"john doe",
+  email:"johndoe@example.com",
+  clerkId:"1",
+  profileImage:"/vercel.svg",
+  isActive:true,
+  lastLoginAt:null,
+  createdAt:new Date(),
+  updatedAt:new Date(),
+  deletedAt:null,
+  tags:["New","Hot","Lead"],
+  callStatus:CallStatusEnum.COMPLETED
+},
+  {
+  id:"2",
+  name:"john doe",
+  email:"johndoe@example.com",
+  clerkId:"1",
+  profileImage:"/vercel.svg",
+  isActive:true,
+  lastLoginAt:null,
+  createdAt:new Date(),
+  updatedAt:new Date(),
+  deletedAt:null,
+  tags:["New","Hot","Lead"],
+  callStatus:CallStatusEnum.COMPLETED
+},
+  {
+  id:"3",
+  name:"john doe",
+  email:"johndoe@example.com",
+  clerkId:"1",
+  profileImage:"/vercel.svg",
+  isActive:true,
+  lastLoginAt:null,
+  createdAt:new Date(),
+  updatedAt:new Date(),
+  deletedAt:null,
+  tags:["New","Hot","Lead"],
+  callStatus:CallStatusEnum.COMPLETED
+},
 ]

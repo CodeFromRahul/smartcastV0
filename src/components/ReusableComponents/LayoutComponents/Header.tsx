@@ -6,6 +6,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { ArrowLeft, Zap} from 'lucide-react'
 import PurpleIcon from './PurpleIcon'
+import CreateWebinarButton from './CreateWebinarButton'
 
 
 type Props = {
@@ -32,6 +33,12 @@ const Header = ({user}: Props) => {
     <PurpleIcon>
     <Zap/>
     </PurpleIcon>
+
+    {/* TODO:Add stripe Subscription and create webinar button */}
+    {/* user.subscription */}
+
+{/* USER CAN CREATE WEBINAR ONLY WHEN HE HAVE DONE WITH PAYMENT */}
+<CreateWebinarButton/>
     </div>
     </div>
 

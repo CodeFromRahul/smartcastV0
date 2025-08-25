@@ -4,6 +4,8 @@ import FeatureCard from './_components/FeatureCard'
 import {  Upload, Webcam } from 'lucide-react'
 import FeatureSectionLayout from './_components/FeatureSectionLayout'
 import Image from 'next/image'
+import UserInfoCard from '../../../components/UserInfoCard/index'
+import { potentialCustomer } from '@/lib/data'
 type Props = {}
 
 const page = (props: Props) => {
@@ -36,8 +38,8 @@ const page = (props: Props) => {
 
         </div>
         <div className='flex flex-col gap-4 items-start '>
-            {Array.from({length:3}).map((_,index)=>(
-              <Image src="/featurecard.png"
+            {Array.from({length:1}).map((_,index)=>(
+              <Image src="/featuredCard.png"
               alt="info-card"
               width={250}
                key={index}
@@ -48,7 +50,30 @@ const page = (props: Props) => {
         </div>
             </div>
             </FeatureSectionLayout>
-          
+          <FeatureSectionLayout heading='see the list tof your current customers' link="pipeline" >
+            <div className="flex gap-4 items-center h-full w-full justify-center relative flex-wrap">
+            {potentialCustomer.slice(0,2).map((customer,index)=>(
+              <UserInfoCard customer={customer}
+              key={index}
+              tags={customer.tags}
+              />
+
+
+
+              
+            ))}
+
+            <Image src="/featuredCard.png"
+            alt='featured card'
+            width={350}
+            height={350}
+            className='object-cover rounded-xl absolute px-5 mb-8 hidded sm:flex backdrop-blur-[20px]'
+            />
+
+
+            </div>
+
+          </FeatureSectionLayout>
 
         </div>
         </div>
