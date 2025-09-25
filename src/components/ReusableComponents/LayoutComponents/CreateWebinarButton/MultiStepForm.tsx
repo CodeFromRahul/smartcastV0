@@ -4,6 +4,14 @@ import React, { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { AlertCircle, Check } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
+import { Button } from '@/components/ui/button'
+import { set } from 'date-fns'
+import { cn } from '@/lib/utils'
+import { on } from 'events'
+import { createWebinar } from '@/actions/webinar'
+import { toast } from 'sonner'
+import { se } from 'date-fns/locale'
+import { useRouter } from 'next/router'
 
 type Step = {
 id:string
@@ -18,7 +26,8 @@ type Props = {
 
 const MultiStepForm = ({steps,onComplete}:Props) => {
     const {formData,validateStep,isSubmitting,setSubmitting,setModalOpen}=useWebinarStore()
-
+  useWebinarStore();
+  const router = useRouter();
     const [completedSteps,setCompletedSteps]=useState<string[]>([])
     const [currentStepIndex,setCurrentStepIndex]=useState(0)
     const [validationError,setValidationError]=useState<string|null>(null)
@@ -26,8 +35,54 @@ const MultiStepForm = ({steps,onComplete}:Props) => {
     const currentStep=steps[currentStepIndex];
     const isFirstStep=currentStepIndex===0;
     const isLastStep=currentStepIndex===steps.length-1;
+    const handleBack=()=>{
+        if(isFirstStep){
+            setModalOpen(false);
+        }
+        else{
+            setCurrentStepIndex(currentStepIndex-1);
+            setValidationError(null);
+        }
+    }
+    const handleNext=async()=>{
+        setValidationError(null);
+        const isValid=validateStep(currentStep.id as keyof typeof formData); 
+        if(!isValid){
+            setValidationError('Please fill all required fields correctly.');
+            return;
+        }
+        if(!completedSteps.includes(currentStep.id)){
+            setCompletedSteps([...completedSteps,currentStep.id]);
+        }
 
-    useWebinarStore();
+        if(isLastStep){
+            try{
+                setSubmitting(true);
+                const result = await createWebinar(formData)
+                if(result.status===200 && result.webinarId){
+                    toast.success('Webinar created successfully!');
+                    onComplete(result.webinarId);
+                }
+                else{
+                    toast.error(result.message || 'Failed to create webinar');
+                    setValidationError(result.message || 'Failed to create webinar');
+                }
+            router.reload()
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                toast.error('An unexpected error occurred. Please try again.');
+                setValidationError('An unexpected error occurred. Please try again.');  
+            } finally {
+                setSubmitting(false);
+            } 
+
+        }
+        else{
+            setCurrentStepIndex(currentStepIndex+1);
+        }
+    }
+
+  
   return (
     <div className='flex flex-col justify-center items-center bg-[#27272A]/20 border border-border rounded-3xl overflow-hidden max-w-6xl mx-auto backdrop-blur-[106px]'>
      <div className='flex items-center justify-center'>
@@ -143,6 +198,15 @@ const MultiStepForm = ({steps,onComplete}:Props) => {
         </AnimatePresence>
     </div>
      </div>
+     <div className='w-full p-6 flex justify-between'>
+                <Button variant="outline"
+                onClick={handleBack}
+                disabled={isSubmitting}
+                className={cn('border-gray-700 text-white hover:bg-gray-800 ', isFirstStep&& 'opacity-50 cursor-not-allowed')}
+                >
+                    {isFirstStep ? 'Cancel' : 'Back'}
+                </Button>
+    </div>
     </div>
   )
 }
