@@ -2,7 +2,7 @@
 import { useWebinarStore } from '@/store/useWebinarStore'
 import React, { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { AlertCircle, Check } from 'lucide-react'
+import { AlertCircle, Check, ChevronRight, Loader2 } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
 import { set } from 'date-fns'
@@ -12,6 +12,7 @@ import { createWebinar } from '@/actions/webinar'
 import { toast } from 'sonner'
 import { se } from 'date-fns/locale'
 import { useRouter } from 'next/router'
+import { Chevron } from 'react-day-picker'
 
 type Step = {
 id:string
@@ -205,6 +206,13 @@ const MultiStepForm = ({steps,onComplete}:Props) => {
                 className={cn('border-gray-700 text-white hover:bg-gray-800 ', isFirstStep&& 'opacity-50 cursor-not-allowed')}
                 >
                     {isFirstStep ? 'Cancel' : 'Back'}
+                </Button>
+                <Button 
+                onClick={handleNext}
+                disabled={isSubmitting}
+                className={cn('border-gray-700 text-white hover:bg-gray-800 ', isLastStep&& 'opacity-50 cursor-not-allowed')}
+                >{isLastStep?(isSubmitting?(<><Loader2 className='animate-spin'/>Creating</>):('complete')):('Next')}
+                    {!isLastStep && <ChevronRight className='ml-2 h-4 w-4' />   }
                 </Button>
     </div>
     </div>

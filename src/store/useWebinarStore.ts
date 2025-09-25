@@ -4,6 +4,7 @@ import { validateAdditionalInfo, validateBasicInfo, validateCTA, ValidationError
 import {create} from 'zustand'
 
 export type WebinarFormState={
+    [x: string]: string;
     basicInfo:{
         webinarName:string;
         description:string;
